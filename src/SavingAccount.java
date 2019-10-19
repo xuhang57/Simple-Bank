@@ -10,6 +10,7 @@ public class SavingAccount implements Account {
     private double balance;
     private UUID id;
     private Name customerName;
+    private String ACCT_TYPE = "Saving";
 
     /**
      * Setup a New Account with an Empty Balance
@@ -97,5 +98,19 @@ public class SavingAccount implements Account {
     public boolean setCustomerName(Name name) {
         this.customerName = name;
         return true;
+    }
+
+    /**
+     * Return the type of this Account
+     * @return String
+     */
+    @Override
+    public String getAcctType() {
+        return SAVING;
+    }
+
+    @Override
+    public String toString() {
+        return "This Saving account has balance: " + this.balance;
     }
 }

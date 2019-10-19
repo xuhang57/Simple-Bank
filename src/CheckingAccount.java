@@ -9,6 +9,7 @@ public class CheckingAccount implements Account {
     private double balance;
     private UUID id;
     private Name customerName;
+    private static final String ACCT_TYPE = "Checking";
 
     /**
      * Setup a New Account with an Empty Balance
@@ -98,6 +99,20 @@ public class CheckingAccount implements Account {
         this.customerName = name;
         // Currently, we do not do any validation here. But in the future, we can extend this method.
         return true;
+    }
+
+    /**
+     * Return the type of this Account
+     * @return String
+     */
+    @Override
+    public String getAcctType() {
+        return CHECKING;
+    }
+
+    @Override
+    public String toString() {
+        return "This Checking account has balance: " + this.balance;
     }
 
 }

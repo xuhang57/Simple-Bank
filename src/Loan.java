@@ -98,4 +98,18 @@ public class Loan implements Account {
         this.customerName = name;
         return true;
     }
+
+    /**
+     * Return the type of this Account
+     * @return String
+     */
+    @Override
+    public String getAcctType() {
+        return Loan;
+    }
+
+    @Override
+    public String toString() {
+        return "This Loan account has unpaid balance: " + this.balance;
+    }
 }

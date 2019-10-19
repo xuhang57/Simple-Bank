@@ -11,6 +11,10 @@ interface Account {
     double INTEREST_MINIMUM_BALANCE = 300;
     double LOAN_RATE = 0.2;
 
+    String CHECKING = "Checking";
+    String SAVING = "Saving";
+    String Loan = "Loan";
+
     /**
      * Return the balance in the account
      *
@@ -52,10 +56,9 @@ interface Account {
      */
     boolean setCustomerName(Name name);
 
-//    /**
-//     * Return All Accounts associated with a Customer's phone number
-//     * @param phoneNumber: long
-//     * @return List<Account>
-//     */
-//    List<Account> getCustomerAccounts(long phoneNumber);
+    /**
+     * Return Account Type as a String
+     * @return String
+     */
+    String getAcctType();
 }
