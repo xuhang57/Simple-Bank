@@ -7,7 +7,7 @@ import java.util.UUID;
  * @date Fall 2019
  */
 public class SavingAccount implements Account {
-    private double balance;
+    private Money balance;
     private UUID id;
     private Name customerName;
     private String ACCT_TYPE = "Saving";
@@ -16,7 +16,7 @@ public class SavingAccount implements Account {
      * Setup a New Account with an Empty Balance
      */
     public SavingAccount() {
-        this.balance = 0;
+        this.balance = new Money(0);
         this.id = UUID.randomUUID();
     }
     /**
@@ -24,7 +24,7 @@ public class SavingAccount implements Account {
      * @param balance
      */
     public SavingAccount(double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
     }
 
@@ -34,19 +34,30 @@ public class SavingAccount implements Account {
      * @param balance : double
      */
     public SavingAccount(Name name, double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
     }
 
     /**
-     * Get the Current Balance in this Account
+     * Get the Current Balance in this Account using default USD currency
      *
      * @return this.balance : double
      */
     @Override
     public double getBalance() {
-        return this.balance;
+        return this.balance.getAmount(Currency.USD);
+    }
+
+    /**
+     * Get the Current Balance in this Account
+     *
+     * @param currency: Currency
+     * @return this.balance : double
+     */
+    @Override
+    public double getBalance(Currency currency) {
+        return this.balance.getAmount(currency);
     }
 
     /**
@@ -61,12 +72,13 @@ public class SavingAccount implements Account {
 
     /**
      * Check the Balance and Determine Whether Pays Interests
+     * Using default currency to determine the requirement
      *
      * @return boolean
      */
     @Override
     public boolean hasInterest() {
-        return this.balance >= Account.INTEREST_MINIMUM_BALANCE;
+        return this.balance.getAmount(Currency.USD) >= Account.INTEREST_MINIMUM_BALANCE;
     }
 
     /**

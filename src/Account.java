@@ -23,6 +23,14 @@ interface Account {
     double getBalance();
 
     /**
+     * Return the balance in the account
+     *
+     * @param currency: Currency
+     * @return double
+     */
+    double getBalance(Currency currency);
+
+    /**
      * Return the interest rate in the account
      *
      *  @return double

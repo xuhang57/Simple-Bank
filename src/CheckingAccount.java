@@ -1,12 +1,10 @@
-import java.util.Map;
-import java.util.HashMap;
 import java.util.UUID;
 /**
  * @author Hang Xu
  * @date Fall 2019
  */
 public class CheckingAccount implements Account {
-    private double balance;
+    private Money balance;
     private UUID id;
     private Name customerName;
     private static final String ACCT_TYPE = "Checking";
@@ -15,7 +13,7 @@ public class CheckingAccount implements Account {
      * Setup a New Account with an Empty Balance
      */
     public CheckingAccount() {
-        this.balance = 0;
+        this.balance = new Money(0);
         this.id = UUID.randomUUID();
     }
 
@@ -24,7 +22,7 @@ public class CheckingAccount implements Account {
      * @param balance
      */
     public CheckingAccount(double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
     }
 
@@ -34,19 +32,30 @@ public class CheckingAccount implements Account {
      * @param balance : double
      */
     public CheckingAccount(Name name, double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
     }
 
     /**
-     * Get the Current Balance in this Account
+     * Get the Current Balance in this Account using default USD currency
      *
      * @return this.balance : double
      */
     @Override
     public double getBalance() {
-        return this.balance;
+        return this.balance.getAmount(Currency.USD);
+    }
+
+    /**
+     * Get the Current Balance in this Account
+     *
+     * @param: currency: Currency
+     * @return this.balance : double
+     */
+    @Override
+    public double getBalance(Currency currency) {
+        return this.balance.getAmount(currency);
     }
 
     /**

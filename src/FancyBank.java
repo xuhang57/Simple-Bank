@@ -1,3 +1,4 @@
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.*;
 
 /**
@@ -22,10 +23,10 @@ public class FancyBank {
             Scanner scanner = new Scanner(System.in);
             int role = scanner.nextInt();
             if (role == 1) {
-                this.managerOperations();
+                this.managerOperations(scanner);
             }
             if (role == 2) {
-                this.customerOperations();
+                this.customerOperations(scanner);
             }
             if (role == 3) {
                 System.out.println("Have a nice day!");
@@ -37,19 +38,37 @@ public class FancyBank {
     /**
      *
      */
-    public void managerOperations() {
-        System.out.println("Will Be Supported");
+    public void managerOperations(Scanner scanner) {
+        System.out.println("Welcome, Manager!");
+        while(true) {
+            System.out.println("Type 1 for generating a fully daily report");
+            System.out.println("Type 2 for checking a specific customer transactions");
+            System.out.println("Type 3 to leave the bank");
+            int ops = scanner.nextInt();
+            if (ops == 1) {
+                this.generateReport();
+            } else if (ops == 2) {
+                System.out.println("What is the phone number of the customer?");
+                long phoneNumber = scanner.nextInt();
+                this.checkCustomer(phoneNumber);
+            } else if (ops == 3) {
+                System.out.println("See ya!");
+                break;
+            } else {
+                System.out.println("Invalid Number");
+            }
+        }
     }
 
     /**
      *
      */
-    public void customerOperations() {
-        Scanner scanner = new Scanner(System.in);
+    public void customerOperations(Scanner scanner) {
         // Current customer in the count at our Bank
         Customer customer = this.registerCustomer(scanner);
+        this.customers.put(customer.getPhoneNumber(), customer);
         while (true) {
-            System.out.println("Welcome, Customer!");
+            System.out.println("Welcome " + customer.getName() + "!");
             System.out.println("Type 1 for opening a Checking Account with us");
             System.out.println("Type 2 for opening a Saving Account with us");
             System.out.println("Type 3 for requesting a Loan from us");
@@ -124,7 +143,6 @@ public class FancyBank {
      * @param customer: Customer
      */
     public void viewTransactions(Customer customer) {
-        System.out.println(this.transactions);
         long phoneNumber = customer.getPhoneNumber();
         if (this.transactions.containsKey(phoneNumber)) {
             List<Transaction> customerTrans = this.transactions.get(phoneNumber);
@@ -137,8 +155,11 @@ public class FancyBank {
 
     }
 
+    /**
+     * View the balances of all Accounts of a given Customer
+     * @param customer: Customer
+     */
     public void viewBalances(Customer customer) {
-        System.out.println(this.accounts);
         long phoneNumber = customer.getPhoneNumber();
         if (this.accounts.containsKey(phoneNumber)) {
             List<Account> customerAccts = this.accounts.get(phoneNumber);
@@ -151,7 +172,7 @@ public class FancyBank {
     }
 
     /**
-     * Record a transaction
+     * Record a transaction to the Bank "Database"
      * @param customer: Customer
      * @param account: Account
      */
@@ -162,6 +183,11 @@ public class FancyBank {
         this.transactions.put(customer.getPhoneNumber(), customerTrans);
     }
 
+    /**
+     * Record the account that a given customer just opened
+     * @param customer: Customer
+     * @param account: Account
+     */
     public void addAccount(Customer customer, Account account) {
         List<Account> customerAccts = this.accounts.getOrDefault(customer.getPhoneNumber(), new ArrayList<>());
         customerAccts.add(account);
@@ -191,10 +217,31 @@ public class FancyBank {
 
     /**
      * Return whether this is a returning customer
-     * @param phoneNumber : long
+     * @param phoneNumber: long
      * @return boolean
      */
     public boolean isReturningCustomer(long phoneNumber) {
         return this.customers.containsKey(phoneNumber);
+    }
+
+    /**
+     * Generate a daily report for the Manager
+     */
+    public void generateReport() {
+        Report report = new Report(this.transactions, this.customers);
+        report.dailyReport();
+    }
+
+    /**
+     * Check all transactions of a specific Customer, including Interests
+     * @param phoneNumber: long
+     */
+    public void checkCustomer(long phoneNumber) {
+        if (this.transactions.containsKey(phoneNumber)) {
+            Customer customer = this.customers.get(phoneNumber);
+            this.viewBalances(customer);
+        } else {
+            System.out.println("Customer does not have any transaction at the moment");
+        }
     }
 }

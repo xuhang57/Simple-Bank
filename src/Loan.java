@@ -6,7 +6,7 @@ import java.util.UUID;
  */
 public class Loan implements Account {
 
-    private double balance;
+    private Money balance;
     private UUID id;
     private Name customerName;
 
@@ -14,7 +14,7 @@ public class Loan implements Account {
      * Setup a New Loan with an Empty Balance
      */
     public Loan() {
-        this.balance = 0;
+        this.balance = new Money(0);
         this.id = UUID.randomUUID();
     }
 
@@ -23,7 +23,7 @@ public class Loan implements Account {
      * @param balance
      */
     public Loan(double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
     }
 
@@ -33,9 +33,19 @@ public class Loan implements Account {
      * @param balance : double
      */
     public Loan(Name name, double balance) {
-        this.balance = balance;
+        this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
+    }
+
+    /**
+     * Get the Current Balance in this Account using default USD currency
+     *
+     * @return this.balance : double
+     */
+    @Override
+    public double getBalance() {
+        return this.balance.getAmount(Currency.USD);
     }
 
     /**
@@ -44,8 +54,8 @@ public class Loan implements Account {
      * @return this.balance : double
      */
     @Override
-    public double getBalance() {
-        return this.balance;
+    public double getBalance(Currency currency) {
+        return this.balance.getAmount(currency);
     }
 
     /**
