@@ -18,20 +18,30 @@ public class FancyBank {
      */
     public void start() {
         System.out.println("Welcome to the Fancy Bank!");
-        while (true) {
-            System.out.println("Type 1 if you are a manager, Type 2 if you are a customer, Type 3 to leave");
-            Scanner scanner = new Scanner(System.in);
-            int role = scanner.nextInt();
-            if (role == 1) {
-                this.managerOperations(scanner);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type 1 for GUI, Type 2 for Console, Type 3 to Leave");
+        //int ops = scanner.nextInt();
+        int ops = 1;
+        if (ops == 1) {
+            GUI gui = new GUI();
+            gui.start();
+        } else if (ops == 2) {
+            while (true) {
+                System.out.println("Type 1 if you are a manager, Type 2 if you are a customer, Type 3 to leave");
+                int role = scanner.nextInt();
+                if (role == 1) {
+                    this.managerOperations(scanner);
+                } else if (role == 2) {
+                    this.customerOperations(scanner);
+                } else if (role == 3) {
+                    System.out.println("Have a nice day!");
+                    break;
+                } else {
+                    System.out.println("Invalid Choice");
+                }
             }
-            if (role == 2) {
-                this.customerOperations(scanner);
-            }
-            if (role == 3) {
-                System.out.println("Have a nice day!");
-                break;
-            }
+        } else {
+            System.out.println("Hope to See you Soon!");
         }
     }
 
