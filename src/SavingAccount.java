@@ -132,7 +132,7 @@ public class SavingAccount implements Account {
      */
     @Override
     public String toString() {
-        return "This Saving account has balance: " + this.balance;
+        return "This Saving account has balance:\n" + this.balance;
     }
 
     /**

@@ -9,10 +9,8 @@ import java.util.Map;
  * @author Hang Xu
  * @date Fall 2019
  */
-public class TransactionPanel extends JFrame implements ActionListener {
-
+public class ReportPanel extends JFrame implements ActionListener {
     private Map<Long, List<Transaction>> transactions;
-    private Customer[] customer;
 
     private static final int WIDTH = 150;
     private static final int HEIGHT = 20;
@@ -24,11 +22,11 @@ public class TransactionPanel extends JFrame implements ActionListener {
 
     private static final String RETURN_LABEL = "Return";
 
-    public TransactionPanel(int frameWidth, int frameHeight,
-                            Map<Long, List<Transaction>> transactions, Customer[] customer) {
-        super("Transaction Panel");
+    public ReportPanel(int frameWidth, int frameHeight,
+                       Map<Long, List<Transaction>> transactions) {
+        super("Fully Report Panel");
 
-        transLabel = new JLabel("All Transactions");
+        transLabel = new JLabel("All Transactions Today");
         transLabel.setBounds(50,15,WIDTH,HEIGHT);
 
 
@@ -53,7 +51,6 @@ public class TransactionPanel extends JFrame implements ActionListener {
         add(returnBtn);
 
         this.transactions = transactions;
-        this.customer = customer;
 
         getAllTransactions();
 
@@ -63,19 +60,16 @@ public class TransactionPanel extends JFrame implements ActionListener {
     }
 
     public void getAllTransactions() {
-        if (this.customer[0] == null) {
-            return;
-        }
-        long phoneNumber = this.customer[0].getPhoneNumber();
-        List<Transaction> allTrans = this.transactions.get(phoneNumber);
-        if (allTrans == null) {
+        if (this.transactions == null) {
             System.out.println("No Transaction at the Moment");
         } else {
-            for (Transaction trans: allTrans) {
-                System.out.println(trans);
+            for (Map.Entry<Long, List<Transaction>> entry: this.transactions.entrySet()) {
+                List<Transaction> allTrans = entry.getValue();
+                for (Transaction tran: allTrans) {
+                    System.out.println(tran);
+                }
             }
         }
-
     }
 
     @Override

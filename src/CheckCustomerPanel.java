@@ -9,10 +9,10 @@ import java.util.Map;
  * @author Hang Xu
  * @date Fall 2019
  */
-public class TransactionPanel extends JFrame implements ActionListener {
+public class CheckCustomerPanel extends JFrame implements ActionListener {
 
     private Map<Long, List<Transaction>> transactions;
-    private Customer[] customer;
+    private Long phoneNumber;
 
     private static final int WIDTH = 150;
     private static final int HEIGHT = 20;
@@ -24,11 +24,17 @@ public class TransactionPanel extends JFrame implements ActionListener {
 
     private static final String RETURN_LABEL = "Return";
 
-    public TransactionPanel(int frameWidth, int frameHeight,
-                            Map<Long, List<Transaction>> transactions, Customer[] customer) {
-        super("Transaction Panel");
+    public CheckCustomerPanel(int frameWidth, int frameHeight,
+                              Map<Long, List<Transaction>> transactions,
+                              Map<Long, Customer> customers,
+                              Long phoneNumber) {
+        super("Check Customer Panel");
 
-        transLabel = new JLabel("All Transactions");
+        Name customerName = new Name("Unknown");
+        if (phoneNumber != null && customers.containsKey(phoneNumber)) {
+            customerName = customers.get(phoneNumber).getName();
+        }
+        transLabel = new JLabel(customerName + "'s Transactions");
         transLabel.setBounds(50,15,WIDTH,HEIGHT);
 
 
@@ -53,29 +59,32 @@ public class TransactionPanel extends JFrame implements ActionListener {
         add(returnBtn);
 
         this.transactions = transactions;
-        this.customer = customer;
+        this.phoneNumber = phoneNumber;
 
-        getAllTransactions();
+        getTransactions();
 
         setSize(frameWidth,frameHeight);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void getAllTransactions() {
-        if (this.customer[0] == null) {
-            return;
-        }
-        long phoneNumber = this.customer[0].getPhoneNumber();
-        List<Transaction> allTrans = this.transactions.get(phoneNumber);
-        if (allTrans == null) {
-            System.out.println("No Transaction at the Moment");
+    public void getTransactions() {
+        if (this.phoneNumber == null) {
+            System.out.println("Please type a Phone Number");
         } else {
-            for (Transaction trans: allTrans) {
-                System.out.println(trans);
+            if (this.transactions == null) {
+                System.out.println("We just opened today! Come back later");
+            } else {
+                if (this.transactions.containsKey(this.phoneNumber)) {
+                    List<Transaction> allTrans = this.transactions.get(this.phoneNumber);
+                    for (Transaction tran: allTrans) {
+                        System.out.println(tran);
+                    }
+                } else {
+                    System.out.println("Customer does not exist");
+                }
             }
         }
-
     }
 
     @Override

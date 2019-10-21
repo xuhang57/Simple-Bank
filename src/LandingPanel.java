@@ -33,7 +33,7 @@ public class LandingPanel extends JFrame implements ActionListener {
     public LandingPanel(int frameWidth, int frameHeight) {
         super("Fancy Bank");
 
-        landingLabel = new JLabel("Are you a Manager or a Customer?");
+        landingLabel = new JLabel("Welcome! Are you a Manager or a Customer?");
         landingLabel.setBounds(50, 15, WIDTH, HEIGHT);
 
         managerBtn = new JButton(MANAGER);
@@ -64,11 +64,6 @@ public class LandingPanel extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        System.out.println("Landing Panel");
-        System.out.println(this.customers);
-        System.out.println(this.transactions);
-        System.out.println(this.accounts);
-        System.out.println(this.customer[0]);
         if (cmd.equals(MANAGER)) {
             ManagerPanel managerPanel = new ManagerPanel(this.frameWidth, this.frameHeight,
                     this.customers, this.transactions, this.accounts);

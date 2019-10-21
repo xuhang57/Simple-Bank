@@ -129,7 +129,7 @@ public class Loan implements Account {
      */
     @Override
     public String toString() {
-        return "This Loan account has unpaid balance: " + this.balance;
+        return "This Loan account has unpaid balance:\n" + this.balance;
     }
 
     /**

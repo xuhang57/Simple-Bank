@@ -45,7 +45,8 @@ public class FancyBank {
     }
 
     /**
-     *
+     * Manager Operations including Generate a fully daily report, check customer and updated report
+     * @param scanner: Scanner
      */
     public void managerOperations(Scanner scanner) {
         System.out.println("Welcome, Manager!");
@@ -70,7 +71,8 @@ public class FancyBank {
     }
 
     /**
-     *
+     * Customer Operations
+     * @param scanner: Scanner
      */
     public void customerOperations(Scanner scanner) {
         // Current customer in the count at our Bank

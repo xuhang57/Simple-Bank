@@ -125,7 +125,7 @@ public class CheckingAccount implements Account {
 
     @Override
     public String toString() {
-        return "This Checking account has balance: " + this.balance;
+        return "This Checking account has balance:\n" + this.balance;
     }
 
     /**

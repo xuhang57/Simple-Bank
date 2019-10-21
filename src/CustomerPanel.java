@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,20 +50,20 @@ public class CustomerPanel extends JFrame implements ActionListener {
         returnBtn = new JButton(RETURN_LABEL);
         returnBtn.setBounds(10, 300, WIDTH, HEIGHT);
 
-
-
         checkingBtn.addActionListener(this);
         savingBtn.addActionListener(this);
         loanBtn.addActionListener(this);
         viewTransBtn.addActionListener(this);
         viewBalanceBtn.addActionListener(this);
         returnBtn.addActionListener(this);
+
         add(checkingBtn);
         add(savingBtn);
         add(loanBtn);
         add(viewTransBtn);
         add(viewBalanceBtn);
         add(returnBtn);
+
         setSize(frameWidth,frameHeight);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,8 +81,6 @@ public class CustomerPanel extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        System.out.println("CustomerPanel");
-        System.out.println(this.customer);
         if (cmd.equals(CHECKING_LABEL)) {
             CheckingPanel checkingPanel = new CheckingPanel(this.frameWidth, this.frameHeight,
                     this.customers, this.transactions, this.accounts, this.customer);
@@ -100,6 +97,10 @@ public class CustomerPanel extends JFrame implements ActionListener {
             TransactionPanel transactionPanel = new TransactionPanel(this.frameWidth, this.frameHeight,
                     this.transactions, this.customer);
             transactionPanel.setVisible(true);
+        } else if(cmd.equals(BALANCE_LABEL)) {
+            BalancePanel balancePanel = new BalancePanel(this.frameWidth, this.frameHeight,
+                    this.accounts, this.customer);
+            balancePanel.setVisible(true);
         } else if (cmd.equals(RETURN_LABEL)) {
             setVisible(false);
         }
