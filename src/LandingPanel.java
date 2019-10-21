@@ -15,6 +15,7 @@ public class LandingPanel extends JFrame implements ActionListener {
     private Map<Long, Customer> customers = new HashMap<>();
     private Map<Long, List<Transaction>> transactions = new HashMap<>();
     private Map<Long, List<Account>> accounts = new HashMap<>();
+    private Customer[] customer = new Customer[1];
 
 
     private JLabel landingLabel;
@@ -63,14 +64,18 @@ public class LandingPanel extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        //System.out.println(this.customers);
+        System.out.println("Landing Panel");
+        System.out.println(this.customers);
+        System.out.println(this.transactions);
+        System.out.println(this.accounts);
+        System.out.println(this.customer[0]);
         if (cmd.equals(MANAGER)) {
             ManagerPanel managerPanel = new ManagerPanel(this.frameWidth, this.frameHeight,
                     this.customers, this.transactions, this.accounts);
             managerPanel.setVisible(true);
         } else {
             CustomerPanel customerPanel = new CustomerPanel(this.frameWidth, this.frameHeight,
-                    this.customers, this.transactions, this.accounts);
+                    this.customers, this.transactions, this.accounts, this.customer);
             customerPanel.setVisible(true);
         }
     }

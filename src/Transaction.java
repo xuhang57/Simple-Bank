@@ -28,22 +28,22 @@ public class Transaction {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("customer name: ");
+        sb.append("customer name:\n");
         sb.append(this.customer.getName());
-        sb.append(" customer phone number: ");
+        sb.append(" customer phone number:\n");
         sb.append(this.customer.getPhoneNumber());
-        sb.append(" customer action: ");
+        sb.append(" customer action:\n");
         if (this.account.getAcctType().equals(CHECKING)) {
-            sb.append("Opened a checking account with the id is ").append(this.account.getAcctId());
+            sb.append("Opened a checking account with the id is\n").append(this.account.getAcctId());
             sb.append(" and opened at").append(this.account.getAccountOpenDate());
         }
         if (this.account.getAcctType().equals(SAVING)) {
-            sb.append("Opened a saving account with the id is ").append(this.account.getAcctId());
-            sb.append(" and opened at").append(this.account.getAccountOpenDate());
+            sb.append("Opened a saving account with the id is\n").append(this.account.getAcctId());
+            sb.append(" and opened at\n").append(this.account.getAccountOpenDate());
         }
         if (this.account.getAcctType().equals(LOAN)) {
-            sb.append("Requested a loan with the id is ").append(this.account.getAcctId());
-            sb.append(" and opened at").append(this.account.getAccountOpenDate());
+            sb.append("Requested a loan with the id is \n").append(this.account.getAcctId());
+            sb.append(" and opened at\n").append(this.account.getAccountOpenDate());
         }
         return sb.toString();
     }

@@ -11,10 +11,10 @@ import java.util.Map;
  */
 public class CheckingPanel extends JFrame implements ActionListener {
 
-    private int frameWidth, frameHeight;
     private Map<Long, Customer> customers;
     private Map<Long, List<Transaction>> transactions;
     private Map<Long, List<Account>> accounts;
+    private Customer[] customer;
 
     private JLabel firstNameLabel, lastNameLabel, phoneNumberLabel, amountLabel;
     private JTextField firstNameField, lastNameField, phoneNumberField, amountField;
@@ -25,7 +25,8 @@ public class CheckingPanel extends JFrame implements ActionListener {
     private static final String OPEN_LABEL = "Open Account";
 
     public CheckingPanel(int frameWidth, int frameHeight, Map<Long, Customer> customers,
-                         Map<Long, List<Transaction>> transactions, Map<Long, List<Account>> accounts) {
+                         Map<Long, List<Transaction>> transactions,
+                         Map<Long, List<Account>> accounts, Customer[] customer) {
         super("Open a new Checking Account");
 
         firstNameLabel = new JLabel("First Name");
@@ -70,11 +71,10 @@ public class CheckingPanel extends JFrame implements ActionListener {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight;
         this.customers = customers;
         this.accounts = accounts;
         this.transactions = transactions;
+        this.customer = customer;
 
     }
     @Override
@@ -91,7 +91,14 @@ public class CheckingPanel extends JFrame implements ActionListener {
             String depositAmountStr = amountField.getText();
             double depositAmount = Double.parseDouble(depositAmountStr);
             Account checking = new CheckingAccount(customerName, depositAmount);
-            this.accounts.getOrDefault(checking, new ArrayList<>()).add(checking);
+            List<Account> account = this.accounts.getOrDefault(phoneNumber, new ArrayList<>());
+            account.add(checking);
+            this.accounts.put(phoneNumber, account);
+            Transaction transaction = new Transaction(customer, checking);
+            List<Transaction> trans = this.transactions.getOrDefault(phoneNumber, new ArrayList<>());
+            trans.add(transaction);
+            this.transactions.put(phoneNumber, trans);
+            this.customer[0] = customer;
         }
         setVisible(false);
     }

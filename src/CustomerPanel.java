@@ -15,6 +15,7 @@ public class CustomerPanel extends JFrame implements ActionListener {
     private Map<Long, Customer> customers;
     private Map<Long, List<Transaction>> transactions;
     private Map<Long, List<Account>> accounts;
+    private Customer[] customer;
 
     private JButton checkingBtn, savingBtn, loanBtn, viewTransBtn, viewBalanceBtn, returnBtn;
     private static final String CHECKING_LABEL = "Open Checking";
@@ -28,7 +29,8 @@ public class CustomerPanel extends JFrame implements ActionListener {
 
 
     CustomerPanel(int frameWidth, int frameHeight, Map<Long, Customer> customers,
-                  Map<Long, List<Transaction>> transactions, Map<Long, List<Account>> accounts) {
+                  Map<Long, List<Transaction>> transactions,
+                  Map<Long, List<Account>> accounts, Customer[] customer) {
         super("Customer");
 
         checkingBtn = new JButton(CHECKING_LABEL);
@@ -54,6 +56,8 @@ public class CustomerPanel extends JFrame implements ActionListener {
         checkingBtn.addActionListener(this);
         savingBtn.addActionListener(this);
         loanBtn.addActionListener(this);
+        viewTransBtn.addActionListener(this);
+        viewBalanceBtn.addActionListener(this);
         returnBtn.addActionListener(this);
         add(checkingBtn);
         add(savingBtn);
@@ -71,21 +75,31 @@ public class CustomerPanel extends JFrame implements ActionListener {
         this.customers = customers;
         this.transactions = transactions;
         this.accounts = accounts;
+        // Current Customer
+        this.customer = customer;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
+        System.out.println("CustomerPanel");
+        System.out.println(this.customer);
         if (cmd.equals(CHECKING_LABEL)) {
             CheckingPanel checkingPanel = new CheckingPanel(this.frameWidth, this.frameHeight,
-                    this.customers, this.transactions, this.accounts);
+                    this.customers, this.transactions, this.accounts, this.customer);
             checkingPanel.setVisible(true);
         } else if (cmd.equals(SAVING_LABEL)) {
-            SavingPanel savingPanel = new SavingPanel();
+            SavingPanel savingPanel = new SavingPanel(this.frameWidth, this.frameHeight,
+                    this.customers, this.transactions, this.accounts, this.customer);
             savingPanel.setVisible(true);
         } else if (cmd.equals(LOAN_LABEL)) {
-            LoanPanel loanPanel = new LoanPanel();
+            LoanPanel loanPanel = new LoanPanel(this.frameWidth, this.frameHeight,
+                    this.customers, this.transactions, this.accounts, this.customer);
             loanPanel.setVisible(true);
+        } else if (cmd.equals(TRANSACTION_LABEL)) {
+            TransactionPanel transactionPanel = new TransactionPanel(this.frameWidth, this.frameHeight,
+                    this.transactions, this.customer);
+            transactionPanel.setVisible(true);
         } else if (cmd.equals(RETURN_LABEL)) {
             setVisible(false);
         }
