@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -9,6 +10,7 @@ public class Loan implements Account {
     private Money balance;
     private UUID id;
     private Name customerName;
+    private LocalDate openDate;
 
     /**
      * Setup a New Loan with an Empty Balance
@@ -16,6 +18,7 @@ public class Loan implements Account {
     public Loan() {
         this.balance = new Money(0);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -25,6 +28,7 @@ public class Loan implements Account {
     public Loan(double balance) {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -36,6 +40,7 @@ public class Loan implements Account {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -118,8 +123,21 @@ public class Loan implements Account {
         return Loan;
     }
 
+    /**
+     * Return how to print this object
+     * @return String
+     */
     @Override
     public String toString() {
         return "This Loan account has unpaid balance: " + this.balance;
+    }
+
+    /**
+     * Return the open date of this Account
+     * @return LocalDate
+     */
+    @Override
+    public LocalDate getAccountOpenDate() {
+        return this.openDate;
     }
 }

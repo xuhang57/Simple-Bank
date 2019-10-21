@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -10,22 +11,25 @@ public class SavingAccount implements Account {
     private Money balance;
     private UUID id;
     private Name customerName;
-    private String ACCT_TYPE = "Saving";
+    private LocalDate openDate;
+
 
     /**
      * Setup a New Account with an Empty Balance
      */
-    public SavingAccount() {
+    SavingAccount() {
         this.balance = new Money(0);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
     /**
      * Setup a New Account with a Provided Balance
-     * @param balance
+     * @param balance: double
      */
-    public SavingAccount(double balance) {
+    SavingAccount(double balance) {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -33,10 +37,11 @@ public class SavingAccount implements Account {
      * @param name : Name
      * @param balance : double
      */
-    public SavingAccount(Name name, double balance) {
+    SavingAccount(Name name, double balance) {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -121,8 +126,21 @@ public class SavingAccount implements Account {
         return SAVING;
     }
 
+    /**
+     * Return how to print this Object
+     * @return String
+     */
     @Override
     public String toString() {
         return "This Saving account has balance: " + this.balance;
+    }
+
+    /**
+     * Return the open date of this Account
+     * @return LocalDate
+     */
+    @Override
+    public LocalDate getAccountOpenDate() {
+        return this.openDate;
     }
 }

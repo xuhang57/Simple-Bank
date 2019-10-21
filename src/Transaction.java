@@ -15,7 +15,7 @@ public class Transaction {
     private static final String SAVING = "Saving";
     private static final String LOAN = "Loan";
 
-    public Transaction(Customer customer, Account account) {
+    Transaction(Customer customer, Account account) {
         this.customer = customer;
         this.account = account;
     }
@@ -33,14 +33,17 @@ public class Transaction {
         sb.append(" customer phone number: ");
         sb.append(this.customer.getPhoneNumber());
         sb.append(" customer action: ");
-        if (this.account.getAcctType() == CHECKING) {
-            sb.append("opened a checking account and the id is " + this.account.getAcctId());
+        if (this.account.getAcctType().equals(CHECKING)) {
+            sb.append("Opened a checking account with the id is ").append(this.account.getAcctId());
+            sb.append(" and opened at").append(this.account.getAccountOpenDate());
         }
-        if (this.account.getAcctType() == SAVING) {
-            sb.append("opened a saving account and the id is " + this.account.getAcctId());
+        if (this.account.getAcctType().equals(SAVING)) {
+            sb.append("Opened a saving account with the id is ").append(this.account.getAcctId());
+            sb.append(" and opened at").append(this.account.getAccountOpenDate());
         }
-        if (this.account.getAcctType() == LOAN) {
-            sb.append("requested a loan and the id is " + this.account.getAcctId());
+        if (this.account.getAcctType().equals(LOAN)) {
+            sb.append("Requested a loan with the id is ").append(this.account.getAcctId());
+            sb.append(" and opened at").append(this.account.getAccountOpenDate());
         }
         return sb.toString();
     }

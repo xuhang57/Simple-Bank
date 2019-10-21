@@ -6,15 +6,12 @@ import java.awt.event.ActionListener;
  * @author Hang Xu
  * @date Fall 2019
  */
-public class GUI implements ActionListener {
+public class GUI {
+    private static final int FRAME_WIDTH = 500;
+    private static final int FRAME_HEIGHT = 500;
 
     public void start() {
-        CustomerPanel customerPanel = new CustomerPanel();
-        customerPanel.setVisible(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
+        LandingPanel landingPanel = new LandingPanel(FRAME_WIDTH, FRAME_HEIGHT);
+        landingPanel.setVisible(true);
     }
 }

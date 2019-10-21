@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.UUID;
 /**
  * @author Hang Xu
@@ -7,7 +8,7 @@ public class CheckingAccount implements Account {
     private Money balance;
     private UUID id;
     private Name customerName;
-    private static final String ACCT_TYPE = "Checking";
+    private LocalDate openDate;
 
     /**
      * Setup a New Account with an Empty Balance
@@ -15,6 +16,7 @@ public class CheckingAccount implements Account {
     public CheckingAccount() {
         this.balance = new Money(0);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -24,6 +26,7 @@ public class CheckingAccount implements Account {
     public CheckingAccount(double balance) {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -35,6 +38,7 @@ public class CheckingAccount implements Account {
         this.balance = new Money(balance);
         this.id = UUID.randomUUID();
         this.customerName = name;
+        this.openDate = LocalDate.now();
     }
 
     /**
@@ -124,4 +128,12 @@ public class CheckingAccount implements Account {
         return "This Checking account has balance: " + this.balance;
     }
 
+    /**
+     * Return the open date of this Account
+     * @return LocalDate
+     */
+    @Override
+    public LocalDate getAccountOpenDate() {
+        return this.openDate;
+    }
 }

@@ -1,4 +1,4 @@
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -69,4 +69,10 @@ interface Account {
      * @return String
      */
     String getAcctType();
+
+    /**
+     * Return a LocalDate of this Account
+     * @return LocalDate
+     */
+    LocalDate getAccountOpenDate();
 }
